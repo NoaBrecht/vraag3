@@ -1,12 +1,19 @@
-- name: Update diagram
-  id: make_diagram
-  uses: githubocto/repo-visualizer@0.7.1
-  with:
-      output_file: "output-diagram.svg"
-      artifact_name: "my-diagram"
-- name: Get artifact
-  uses: actions/download-artifact@v2
-  with:
-      name: "diagram"
-      path: "downloads"
-      should_push: false
+on:
+  push:
+    branches:
+    - main
+jobs:
+  visualize:
+   runs-on: ubuntu-22.04
+   - name: Update diagram
+      id: make_diagram
+      uses: githubocto/repo-visualizer@0.7.1
+      with:
+        output_file: "output-diagram.svg"
+        artifact_name: "my-diagram"
+   - name: Get artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: "diagram"
+        path: "downloads"
+        should_push: false
